@@ -99,9 +99,7 @@ public class StudentClassTests {
 
     String url = "/api/studentClasses/search";
     //Search - 반 이름
-    mvc.perform(post(url).content(docs::setKeyword, "5")).andExpect(is2xx()).andDo(print());
-    //Search - 학생 수
-    mvc.perform(post(url).content(docs::setKeyword, "7")).andExpect(is2xx()).andDo(print());
+    mvc.perform(post(url).content(docs::setKeyword, "5반")).andExpect(is2xx()).andDo(print());
 
     //Search - 페이지네이션 - 5개씩 8페이지
     mvc.perform(post(url).content(docs::setKeyword, "")

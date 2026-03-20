@@ -31,7 +31,6 @@ public class StudentClassHandler {
     // select * from where stCount = 키워드 or name = '키워드'
     query.where()
         .and().eq("className", e.getKeyword())
-        .or().eq("stCount", Integer.valueOf(e.getKeyword()))
         .build(spec);
 
   }
