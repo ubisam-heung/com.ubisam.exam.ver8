@@ -28,7 +28,7 @@ public class StudentClassHandler {
     //테스트에서는 sysout으로 작성하나 실제는 log 사용
     System.out.println("[HandlebeforeRead] "+e);
     JpaSpecificationBuilder<StudentClass> query = JpaSpecificationBuilder.of(StudentClass.class);
-    // select * from where stCount = 키워드 or name = '키워드'
+    // select * from where name = '키워드'
     query.where()
         .and().eq("className", e.getKeyword())
         .build(spec);
