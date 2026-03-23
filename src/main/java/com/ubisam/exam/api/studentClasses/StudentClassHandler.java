@@ -44,7 +44,6 @@ public class StudentClassHandler {
         ConversionService conversionService = DefaultConversionService.getSharedInstance();
         value = conversionService.convert(keyword, fieldType);
     }
-    // select * from where name = '키워드'
     query.where().and().eq(searchType, value).build(spec);
 
   }
