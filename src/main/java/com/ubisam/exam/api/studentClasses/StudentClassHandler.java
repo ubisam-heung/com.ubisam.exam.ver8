@@ -27,8 +27,8 @@ public class StudentClassHandler {
 
   @HandleBeforeRead
   public void beforeRead(StudentClass e, Specification spec) throws Exception{
-    //로그 코드 작성 (Auditing)
-    //테스트에서는 sysout으로 작성하나 실제는 log 사용
+    // 로그 코드 작성 (Auditing)
+    // 테스트에서는 sysout으로 작성하나 실제는 log 사용
     System.out.println("[HandlebeforeRead] "+e);
 
     String searchType = e.getSearchType();
@@ -37,9 +37,11 @@ public class StudentClassHandler {
     JpaSpecificationBuilder<StudentClass> query = JpaSpecificationBuilder.of(StudentClass.class);
 
     Object value = keyword;
+    // 전체 목록인지 조건 검색인지 판별하는 부분
     if (searchType != null && !searchType.isEmpty() && keyword != null && !keyword.isEmpty()) {
-        Field field = StudentClass.class.getDeclaredField(searchType);
-        Class<?> fieldType = field.getType();
+        // 검색조건(searchType)의 사용자 입력값에 따라 StudentClass 도메인에서 해당 필드를 가져오는 후 해당 필드의 타입을 체크
+        Class<?> fieldType = StudentClass.class.getDeclaredField(searchType).getType();
+        // 해당 필드 타입에 맞게 검색어를 가공해주는 부분
         ConversionService conversionService = DefaultConversionService.getSharedInstance();
         value = conversionService.convert(keyword, fieldType);
     }
@@ -49,51 +51,51 @@ public class StudentClassHandler {
 
   @HandleAfterRead
   public void afterRead(StudentClass e, Serializable r) throws Exception{
-    //로그 코드 작성 (Auditing)
-    //테스트에서는 sysout으로 작성하나 실제는 log 사용
+    // 로그 코드 작성 (Auditing)
+    // 테스트에서는 sysout으로 작성하나 실제는 log 사용
     System.out.println("[HandleafterRead] "+e);
     System.out.println("[HandleafterRead] "+r);
   }
 
   @HandleBeforeCreate
   public void beforeCreate(StudentClass e) throws Exception{
-    //로그 코드 작성 (Auditing)
-    //테스트에서는 sysout으로 작성하나 실제는 log 사용
+    // 로그 코드 작성 (Auditing)
+    // 테스트에서는 sysout으로 작성하나 실제는 log 사용
     System.out.println("[HandlebeforeCreate] "+e);
   }
 
   @HandleBeforeSave
   public void beforeSave(StudentClass e) throws Exception{
-    //로그 코드 작성 (Auditing)
-    //테스트에서는 sysout으로 작성하나 실제는 log 사용
+    // 로그 코드 작성 (Auditing)
+    // 테스트에서는 sysout으로 작성하나 실제는 log 사용
     System.out.println("[HandlebeforeSave] "+e);
   }
   
   @HandleBeforeDelete
   public void beforeDelete(StudentClass e) throws Exception{
-    //로그 코드 작성 (Auditing)
-    //테스트에서는 sysout으로 작성하나 실제는 log 사용
+    // 로그 코드 작성 (Auditing)
+    // 테스트에서는 sysout으로 작성하나 실제는 log 사용
     System.out.println("[HandlebeforeDelete] "+e);
   }
 
   @HandleAfterCreate
   public void afterCreate(StudentClass e) throws Exception{
-    //로그 코드 작성 (Auditing)
-    //테스트에서는 sysout으로 작성하나 실제는 log 사용
+    // 로그 코드 작성 (Auditing)
+    // 테스트에서는 sysout으로 작성하나 실제는 log 사용
     System.out.println("[HandleafterCreate] "+e);
   }
 
   @HandleAfterSave
   public void afterSave(StudentClass e) throws Exception{
-    //로그 코드 작성 (Auditing)
-    //테스트에서는 sysout으로 작성하나 실제는 log 사용
+    // 로그 코드 작성 (Auditing)
+    // 테스트에서는 sysout으로 작성하나 실제는 log 사용
     System.out.println("[HandleafterSave] "+e);
   }
   
   @HandleAfterDelete
   public void afterDelete(StudentClass e) throws Exception{
-    //로그 코드 작성 (Auditing)
-    //테스트에서는 sysout으로 작성하나 실제는 log 사용
+    // 로그 코드 작성 (Auditing)
+    // 테스트에서는 sysout으로 작성하나 실제는 log 사용
     System.out.println("[HandleafterDelete] "+e);
   }
   
@@ -107,7 +109,7 @@ public class StudentClassHandler {
 해결방안: 키워드만 넘겨주지 말고 검색조건을 넣어주어 같이 보내주는 방법을 처리한다.
          Class에 @Trainsient로 searchType을 추가한다. Docs와 Handler를 수정한다.
 
-    // select * from where name = '키워드'
+    //  select * from where name = '키워드'
     query.where()
         .and().eq("className", e.getKeyword())
         .build(spec);
@@ -139,7 +141,7 @@ public class StudentClassHandler {
 의문점3: 아래 코드를 사용하면 Long, Integer, Boolean 등 수많은 타입들에 대한 조건을 일일이 추가해야한다.
         한 번에 처리하는 방법이 없을까?
 
-해결방안: https://docs.spring.io/spring-framework/reference/6.2/core/validation/convert.html#core-convert-ConversionService-API
+해결방안: https:// docs.spring.io/spring-framework/reference/6.2/core/validation/convert.html#core-convert-ConversionService-API
         위 사이트에 내용에 따르면 ConversionService 라는 것을 이용하여 한 번에 처리가 가능하다고 한다.
         코드는 ai에게 아래 코드를 ConversionService를 사용하여 가공해달라고 하니 처리해준 코드이다.
 
