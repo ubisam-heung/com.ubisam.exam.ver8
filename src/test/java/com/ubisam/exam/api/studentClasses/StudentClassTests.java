@@ -18,7 +18,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.ubisam.exam.domain.Student;
 import com.ubisam.exam.domain.StudentClass;
 
 import io.u2ware.common.data.jpa.repository.query.JpaSpecificationBuilder;
@@ -98,16 +97,23 @@ public class StudentClassTests {
 		studentClassRepository.saveAll(userList);
 
     String url = "/api/studentClasses/search";
+
     //Search - 반 이름
-    mvc.perform(post(url).content(docs::setKeyword, "5반")).andExpect(is2xx()).andDo(print());
+    mvc.perform(post(url).content(docs::setSearch, "className", "5반"))
+    .andExpect(is2xx());
+    
+    //Search - 학생 수
+    mvc.perform(post(url).content(docs::setSearch, "stCount", "8"))
+    .andExpect(is2xx()).andDo(print());
 
     //Search - 페이지네이션 - 5개씩 8페이지
-    mvc.perform(post(url).content(docs::setKeyword, "")
-    .param("size", "5")).andExpect(is2xx());
+    mvc.perform(post(url).content(docs::setSearch, "", "")
+    .param("size", "5")).andExpect(is2xx()).andDo(print());
 
     //Search - 정렬 className, desc
-    mvc.perform(post(url).content(docs::setKeyword, "")
+    mvc.perform(post(url).content(docs::setSearch, "", "")
     .param("sort", "className,desc")).andExpect(is2xx());
+    
   }
 
 }

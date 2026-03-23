@@ -22,4 +22,7 @@ public class StudentClass {
   @Transient
   private String keyword;
 
+  @Transient
+  private String searchType;
+
 }
