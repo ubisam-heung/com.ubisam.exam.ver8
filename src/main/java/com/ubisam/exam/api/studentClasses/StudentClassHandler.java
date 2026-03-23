@@ -26,12 +26,6 @@ import io.u2ware.common.data.rest.core.annotation.HandleBeforeRead;
 @RepositoryEventHandler
 public class StudentClassHandler {
 
-  private final Application application;
-
-  StudentClassHandler(Application application) {
-    this.application = application;
-  }
-
   @HandleBeforeRead
   public void beforeRead(StudentClass e, Specification spec) throws Exception{
     //로그 코드 작성 (Auditing)
