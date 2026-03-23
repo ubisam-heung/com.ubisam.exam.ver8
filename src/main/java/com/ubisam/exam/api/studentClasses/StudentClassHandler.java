@@ -1,6 +1,5 @@
 package com.ubisam.exam.api.studentClasses;
 
-import com.ubisam.exam.Application;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
