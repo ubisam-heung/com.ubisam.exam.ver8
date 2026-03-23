@@ -1,7 +1,6 @@
 package com.ubisam.exam.api.studentClasses;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
 
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
@@ -25,28 +24,18 @@ import io.u2ware.common.data.rest.core.annotation.HandleBeforeRead;
 @RepositoryEventHandler
 public class StudentClassHandler {
 
+
   @HandleBeforeRead
   public void beforeRead(StudentClass e, Specification spec) throws Exception{
     // 로그 코드 작성 (Auditing)
     // 테스트에서는 sysout으로 작성하나 실제는 log 사용
     System.out.println("[HandlebeforeRead] "+e);
 
-    String searchType = e.getSearchType();
-    String keyword = e.getKeyword();
-
     JpaSpecificationBuilder<StudentClass> query = JpaSpecificationBuilder.of(StudentClass.class);
-
-    Object value = keyword;
-    // 전체 목록인지 조건 검색인지 판별하는 부분
-    if (searchType != null && !searchType.isEmpty() && keyword != null && !keyword.isEmpty()) {
-        // 검색조건(searchType)의 사용자 입력값에 따라 StudentClass 도메인에서 해당 필드를 가져오는 후 해당 필드의 타입을 체크
-        Class<?> fieldType = StudentClass.class.getDeclaredField(searchType).getType();
-        // 해당 필드 타입에 맞게 검색어를 가공해주는 부분
-        ConversionService conversionService = DefaultConversionService.getSharedInstance();
-        value = conversionService.convert(keyword, fieldType);
-    }
-    query.where().and().eq(searchType, value).build(spec);
-
+    query.where()
+      .and().eq("className", e.getClassNameSearch())
+      .and().eq("stCount", e.getStCountSearch())
+      .build(spec);
   }
 
   @HandleAfterRead

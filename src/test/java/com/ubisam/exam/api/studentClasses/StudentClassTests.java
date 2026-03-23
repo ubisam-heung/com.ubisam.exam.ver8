@@ -99,19 +99,19 @@ public class StudentClassTests {
     String url = "/api/studentClasses/search";
 
     //Search - 반 이름
-    mvc.perform(post(url).content(docs::setSearch, "className", "5반"))
-    .andExpect(is2xx());
+    mvc.perform(post(url).content(docs::setSearch, "5반"))
+    .andExpect(is2xx()).andDo(print());
     
     //Search - 학생 수
-    mvc.perform(post(url).content(docs::setSearch, "stCount", "8"))
-    .andExpect(is2xx());
+    mvc.perform(post(url).content(docs::setSearch2, 8))
+    .andExpect(is2xx()).andDo(print());
 
     //Search - 페이지네이션 - 5개씩 8페이지
-    mvc.perform(post(url).content(docs::setSearch, "className", "")
+    mvc.perform(post(url).content(docs::setSearch, "")
     .param("size", "5")).andExpect(is2xx()).andDo(print());
 
     //Search - 정렬 className, desc
-    mvc.perform(post(url).content(docs::setSearch, "", "")
+    mvc.perform(post(url).content(docs::setSearch, "")
     .param("sort", "className,desc")).andExpect(is2xx());
     
   }

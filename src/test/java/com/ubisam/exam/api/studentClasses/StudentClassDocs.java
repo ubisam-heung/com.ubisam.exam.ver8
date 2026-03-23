@@ -26,11 +26,17 @@ public class StudentClassDocs extends MockMvcRestDocs{
     return entity;
   }
 
-  //목적: 키워드를 통한 검색
-  public Map<String, Object> setSearch(String searchType, String keyword){
+  //목적: classNameSearch을 통한 검색
+  public Map<String, Object> setSearch(String search){
     Map<String, Object> entity = new HashMap<>();
-    entity.put("searchType", searchType);
-    entity.put("keyword", keyword);
+    entity.put("classNameSearch", search);
+    return entity;
+  }
+
+  //목적: stCountSearch를 통한 검색
+  public Map<String, Object> setSearch2(Integer search){
+    Map<String, Object> entity = new HashMap<>();
+    entity.put("stCountSearch", search);
     return entity;
   }
 

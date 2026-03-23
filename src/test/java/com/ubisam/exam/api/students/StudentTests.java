@@ -106,7 +106,7 @@ public class StudentTests {
 
     //Search - 학번
     mvc.perform(get("/api/students/search/findByStNumber")
-    .param("stNumber", "20260321")).andExpect(is2xx());
+    .param("stNumber", "20260321")).andExpect(is2xx()).andDo(print());
     //Search - 이름
     mvc.perform(get("/api/students/search/findByName")
     .param("name", "길동3")).andExpect(is2xx());

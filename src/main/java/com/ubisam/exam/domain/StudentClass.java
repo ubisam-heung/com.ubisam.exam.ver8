@@ -19,10 +19,12 @@ public class StudentClass {
   private String className;
   private Integer stCount;
 
-  @Transient
-  private String keyword;
 
   @Transient
-  private String searchType;
+  private String classNameSearch;
+
+  @Transient
+  private Integer stCountSearch;
+
 
 }
