@@ -2,8 +2,6 @@ package com.ubisam.exam.api.studentClasses;
 
 import java.io.Serializable;
 
-import org.springframework.core.convert.ConversionService;
-import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleAfterDelete;
@@ -26,7 +24,7 @@ public class StudentClassHandler {
 
 
   @HandleBeforeRead
-  public void beforeRead(StudentClass e, Specification spec) throws Exception{
+  public void beforeRead(StudentClass e, Specification<StudentClass> spec) throws Exception{
     // 로그 코드 작성 (Auditing)
     // 테스트에서는 sysout으로 작성하나 실제는 log 사용
     System.out.println("[HandlebeforeRead] "+e);

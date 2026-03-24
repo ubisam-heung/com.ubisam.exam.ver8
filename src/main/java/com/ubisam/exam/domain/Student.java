@@ -15,7 +15,7 @@ public class Student {
   @Id
   @GeneratedValue
   private Long id;
-  //테스트를 할 때 선언한 필드
+  //테스트를 할 때 선언한 필드 
   private Integer stNumber;
   private String name;
   private String address;
